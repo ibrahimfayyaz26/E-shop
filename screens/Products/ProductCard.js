@@ -18,9 +18,7 @@ const ProductCard = (props) => {
         style={styles.image}
         resizeMode="contain"
         source={{
-          uri: image
-            ? image
-            : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
+          uri: "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
         }}
       />
       <View style={styles.card} />
@@ -42,12 +40,12 @@ const ProductCard = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: width / 2 - 20,
+    width: width / 2 - 15,
     height: width / 1.7,
     padding: 10,
     borderRadius: 10,
-    marginTop: 55,
-    marginBottom: 5,
+    marginTop: 35,
+    marginBottom: 2,
     marginLeft: 10,
     alignItems: "center",
     elevation: 8,
@@ -61,7 +59,7 @@ const styles = StyleSheet.create({
     top: -45,
   },
   card: {
-    marginBottom: 10,
+    marginBottom: 5,
     height: width / 2 - 20 - 90,
     backgroundColor: "transparent",
     width: width / 2 - 20 - 10,

@@ -16,11 +16,17 @@ const ProductMain = () => {
   useEffect(() => setProducts(data), []);
 
   return (
-    <View>
+    <View style={{ backgroundColor: "gainsboro" }}>
       <Text>products</Text>
-      <View style={{ marginTop: 100 }}>
+      <View
+        style={{
+          width: "100%",
+          flex: 1,
+          backgroundColor: "gainsboro",
+        }}
+      >
         <FlatList
-          horizontal
+          numColumns={2}
           data={products}
           keyExtractor={(item) => item._id.$oid}
           renderItem={({ item }) => (
