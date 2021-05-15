@@ -5,6 +5,7 @@ import {
   FlatList,
   ActivityIndicator,
   Keyboard,
+  Dimensions,
 } from "react-native";
 import {
   Container,
@@ -18,18 +19,28 @@ import {
 
 import ProductList from "./ProductList";
 import SearchedItems from "./SearchedItems";
+import Banner from "../../shared/Banner";
 
 const data = require("../../data/products.json");
+const catogoriesData = require("../../data/cateogories.json");
+
+var { height } = Dimensions.get("window");
 
 const ProductMain = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [focus, setFocus] = useState();
+  const [catData, setCatData] = useState([]);
+  const [active, setActive] = useState();
+  const [initialState, setInitialState] = useState([]);
 
   useEffect(() => {
     setProducts(data);
     setFilteredProducts(data);
     setFocus(false);
+    setCatData(catogoriesData);
+    setActive(-1);
+    setInitialState(data);
   }, []);
 
   const searchCom = (text) => {
@@ -61,8 +72,10 @@ const ProductMain = () => {
       {focus == true ? (
         <SearchedItems filteredProducts={filteredProducts} />
       ) : (
-        <View style={{ flexWrap: "wrap", backgroundColor: "gainsboro" }}>
-          <Text>products</Text>
+        <View
+          style={{ flexWrap: "wrap", backgroundColor: "gainsboro", flex: 1 }}
+        >
+          <Banner />
           <View style={styles.list}>
             <FlatList
               numColumns={2}
@@ -81,7 +94,7 @@ const ProductMain = () => {
 
 const styles = StyleSheet.create({
   list: {
-    width: "100%",
+    height: height,
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
