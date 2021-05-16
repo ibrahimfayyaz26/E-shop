@@ -6,7 +6,7 @@ const CategoryFilter = (props) => {
   return (
     <ScrollView
       horizontal={true}
-      bounce={false}
+      bounce={true}
       style={{ backgroundColor: "#f2f2f2" }}
     >
       <ListItem>

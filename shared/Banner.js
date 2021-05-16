@@ -20,7 +20,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <ScrollView style={{ flex: 1, marginBottom: -200 }}>
+    <ScrollView>
       <View style={styles.container}>
         <View style={styles.swiper}>
           <Swiper

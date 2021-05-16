@@ -20,6 +20,7 @@ import {
 import ProductList from "./ProductList";
 import SearchedItems from "./SearchedItems";
 import Banner from "../../shared/Banner";
+import CategoryFilter from "./CategoryFilter";
 
 const data = require("../../data/products.json");
 const catogoriesData = require("../../data/cateogories.json");
@@ -72,10 +73,13 @@ const ProductMain = () => {
       {focus == true ? (
         <SearchedItems filteredProducts={filteredProducts} />
       ) : (
-        <View
-          style={{ flexWrap: "wrap", backgroundColor: "gainsboro", flex: 1 }}
-        >
-          <Banner />
+        <View>
+          <View>
+            <Banner />
+          </View>
+          <View>
+            <CategoryFilter />
+          </View>
           <View style={styles.list}>
             <FlatList
               numColumns={2}
