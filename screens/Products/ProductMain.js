@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Keyboard,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import {
   Container,
@@ -34,6 +35,7 @@ const ProductMain = () => {
   const [catData, setCatData] = useState([]);
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
+  const [productsCtg, setProductsCtg] = useState([]);
 
   useEffect(() => {
     setProducts(data);
@@ -41,6 +43,7 @@ const ProductMain = () => {
     setFocus(false);
     setCatData(catogoriesData);
     setActive(-1);
+    setProductsCtg(data);
     setInitialState(data);
   }, []);
 
@@ -55,6 +58,19 @@ const ProductMain = () => {
   const blur = () => {
     setFocus(false);
     Keyboard.dismiss();
+  };
+
+  const changeCtg = (ctg) => {
+    {
+      ctg === "all"
+        ? [setProductsCtg(initialState), setActive(true)]
+        : [
+            setProductsCtg(
+              products.filter((i) => i.category.$oid === ctg),
+              setActive(true)
+            ),
+          ];
+    }
   };
 
   return (
@@ -73,24 +89,39 @@ const ProductMain = () => {
       {focus == true ? (
         <SearchedItems filteredProducts={filteredProducts} />
       ) : (
-        <View>
+        <ScrollView>
           <View>
-            <Banner />
+            <View>
+              <Banner />
+            </View>
+            <View>
+              <CategoryFilter
+                categories={catData}
+                categoryFilter={changeCtg}
+                productsCtg={productsCtg}
+                active={active}
+                setActive={setActive}
+              />
+            </View>
+            {productsCtg.length ? (
+              <View style={styles.list}>
+                {productsCtg.map((item) => (
+                  <ProductList key={item._id.$oid} item={item} />
+                ))}
+              </View>
+            ) : (
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: height / 2,
+                }}
+              >
+                <Text>No Products Found</Text>
+              </View>
+            )}
           </View>
-          <View>
-            <CategoryFilter />
-          </View>
-          <View style={styles.list}>
-            <FlatList
-              numColumns={2}
-              data={products}
-              keyExtractor={(item) => item._id.$oid}
-              renderItem={({ item }) => (
-                <ProductList key={item._id.$oid} item={item} />
-              )}
-            />
-          </View>
-        </View>
+        </ScrollView>
       )}
     </Container>
   );

@@ -6,7 +6,7 @@ import { LogBox, StyleSheet, Text, View } from "react-native";
 import ProductMain from "./screens/Products/ProductMain";
 import Header from "./shared/Header";
 
-//LogBox.ignoreAllLogs(true) to ignore yellow errors
+LogBox.ignoreAllLogs(true);
 
 export default function App() {
   return (
