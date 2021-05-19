@@ -2,19 +2,21 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { LogBox, StyleSheet, Text, View } from "react-native";
 
-// Screens
-import ProductMain from "./screens/Products/ProductMain";
 import Header from "./shared/Header";
+
+//Navigators
+import Main from "./Navgation/Main";
+import Tab from "./Navgation/TabNavigation";
 
 LogBox.ignoreAllLogs(true);
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <Main>
       <Header />
-      <ProductMain />
+      <Tab />
       <StatusBar style="light" />
-    </View>
+    </Main>
   );
 }
 
