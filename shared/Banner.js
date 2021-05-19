@@ -20,14 +20,14 @@ const Banner = () => {
   }, []);
 
   return (
-    <ScrollView style={{ flex: 1, marginBottom: -200 }}>
+    <ScrollView>
       <View style={styles.container}>
         <View style={styles.swiper}>
           <Swiper
             style={{ height: width / 2 }}
             showButtons={false}
             autoplay={true}
-            autoplayTimeout={3}
+            autoplayTimeout={2.5}
           >
             {bannerData.map((item) => {
               return (
