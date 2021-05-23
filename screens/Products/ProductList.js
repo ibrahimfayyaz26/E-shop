@@ -13,7 +13,14 @@ var { width } = Dimensions.get("window");
 
 const ProductList = (props) => {
   return (
-    <TouchableOpacity style={{ width: "50%" }}>
+    <TouchableOpacity
+      onPress={() =>
+        props.navigation.navigate("Details", {
+          item: props.item,
+        })
+      }
+      style={{ width: "50%" }}
+    >
       <View style={{ width: width / 2, backgroundColor: "gainsboro" }}>
         <Card {...props.item} />
       </View>

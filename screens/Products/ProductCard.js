@@ -7,10 +7,13 @@ import {
   Image,
   Button,
 } from "react-native";
+import { connect } from "react-redux";
+import * as Actions from "../../store/Action/cartItems";
 
 var { width } = Dimensions.get("window");
 
 const ProductCard = (props) => {
+  console.log(props);
   const { image, name, price, countInStock } = props;
   return (
     <View style={styles.container}>
@@ -78,4 +81,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductCard;
+const dispatchData = (dispatch) => {
+  return {
+    addItem: (product) =>
+      dispatch(Actions.add({ quantity: 1, product: product })),
+  };
+};
+
+export default connect(null, dispatchData)(ProductCard);
