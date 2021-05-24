@@ -13,7 +13,6 @@ import * as Actions from "../../store/Action/cartItems";
 var { width } = Dimensions.get("window");
 
 const ProductCard = (props) => {
-  console.log(props);
   const { image, name, price, countInStock } = props;
   return (
     <View style={styles.container}>
@@ -34,7 +33,11 @@ const ProductCard = (props) => {
 
       {countInStock > 0 ? (
         <View style={{ marginBottom: 60 }}>
-          <Button title="Add" color="green" />
+          <Button
+            title="Add"
+            color="green"
+            onPress={() => props.addItem(props)}
+          />
         </View>
       ) : (
         <Text style={{ marginTop: 20 }}>Currently Unavailable</Text>
