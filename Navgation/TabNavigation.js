@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import HomeStack from "./ProductStack";
+import Cart from "../screens/Cart/Cart";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="Cart"
-        component={() => null}
+        component={Cart}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="shopping-cart" color={color} size={30} />
