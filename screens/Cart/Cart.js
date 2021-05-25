@@ -3,15 +3,13 @@ import { StyleSheet, View, Dimensions } from "react-native";
 import { connect } from "react-redux";
 import {
   Container,
-  Header,
-  Content,
-  List,
   ListItem,
   Left,
   Body,
   Right,
   Thumbnail,
   Text,
+  H3,
   H1,
 } from "native-base";
 
@@ -21,34 +19,46 @@ const Cart = (props) => {
   return (
     <>
       {props.cartItems.length ? (
-        props.cartItems.map((item) => {
-          return (
-            <Container style={{ flex: 1, width: width }}>
-              <Header />
-              <Content>
-                <ListItem avatar>
+        <Container>
+          <H1 style={{ alignSelf: "center" }}>Cart</H1>
+          {props.cartItems.map((item) => {
+            return (
+              <ListItem
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "white",
+                }}
+                key={item.product._id.$oid}
+                avatar
+              >
+                <Left>
+                  <Thumbnail
+                    source={{
+                      uri: item.product.image
+                        ? item.product.image
+                        : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
+                    }}
+                  />
+                </Left>
+                <Body
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    margin: 10,
+                  }}
+                >
                   <Left>
-                    <Thumbnail
-                      source={{
-                        uri: item.product.image
-                          ? item.product.image
-                          : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
-                      }}
-                    />
+                    <H3>{item.product.name}</H3>
                   </Left>
-                  <Body style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Left>
-                      <H1>{item.product.name}</H1>
-                    </Left>
-                    <Right>
-                      <Text>${item.product.price}</Text>
-                    </Right>
-                  </Body>
-                </ListItem>
-              </Content>
-            </Container>
-          );
-        })
+                  <Right>
+                    <Text>${item.product.price}</Text>
+                  </Right>
+                </Body>
+              </ListItem>
+            );
+          })}
+        </Container>
       ) : (
         <Container
           style={{

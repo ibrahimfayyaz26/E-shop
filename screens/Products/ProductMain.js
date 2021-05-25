@@ -92,7 +92,7 @@ const ProductMain = (props) => {
           filteredProducts={filteredProducts}
         />
       ) : (
-        <ScrollView>
+        <ScrollView style={{ flex: 1 }}>
           <View>
             <View>
               <Banner />
@@ -136,7 +136,7 @@ const ProductMain = (props) => {
 
 const styles = StyleSheet.create({
   list: {
-    height: height,
+    height: height + height / 4,
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
