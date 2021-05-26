@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, Button } from "react-native";
 import { connect } from "react-redux";
 import {
   Container,
@@ -12,10 +12,16 @@ import {
   H3,
   H1,
 } from "native-base";
+import * as Action from "../../store/Action/cartItems";
+import { SwipeListView } from "react-native-swipe-list-view";
 
 const { width, height } = Dimensions.get("window");
 
 const Cart = (props) => {
+  var total = 0;
+  props.cartItems.forEach(
+    (item) => (total += item.product.price * item.quantity)
+  );
   return (
     <>
       {props.cartItems.length ? (
@@ -29,7 +35,7 @@ const Cart = (props) => {
                   justifyContent: "center",
                   backgroundColor: "white",
                 }}
-                key={item.product._id.$oid}
+                key={Math.random() * Math.random()}
                 avatar
               >
                 <Left>
@@ -58,6 +64,28 @@ const Cart = (props) => {
               </ListItem>
             );
           })}
+          <View
+            style={{
+              flexDirection: "row",
+              bottom: 0,
+              elevation: 20,
+              position: "absolute",
+              left: 0,
+              backgroundColor: "white",
+            }}
+          >
+            <Left>
+              <Text style={{ margin: 10, color: "red", fontSize: 18 }}>
+                ${Math.ceil(total)}
+              </Text>
+            </Left>
+            <Right>
+              <Button title="Clear" onPress={() => props.clear()} />
+            </Right>
+            <Right>
+              <Button title="Checkout" />
+            </Right>
+          </View>
         </Container>
       ) : (
         <Container
@@ -84,4 +112,11 @@ const stateData = (state) => {
   };
 };
 
-export default connect(stateData, null)(Cart);
+const dispatchProps = (dispatch) => {
+  return {
+    clear: () => dispatch(Action.clear()),
+    remove: (i) => dispatch(Action.remove(i)),
+  };
+};
+
+export default connect(stateData, dispatchProps)(Cart);
