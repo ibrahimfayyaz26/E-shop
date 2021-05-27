@@ -1,19 +1,17 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, Button } from "react-native";
-import { connect } from "react-redux";
 import {
-  Container,
-  ListItem,
-  Left,
-  Body,
-  Right,
-  Thumbnail,
-  Text,
-  H3,
-  H1,
-} from "native-base";
+  StyleSheet,
+  View,
+  Dimensions,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import { connect } from "react-redux";
+import { Container, Left, Right, Text, H1 } from "native-base";
 import * as Action from "../../store/Action/cartItems";
 import { SwipeListView } from "react-native-swipe-list-view";
+import CartItem from "./CartItem";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const { width, height } = Dimensions.get("window");
 
@@ -27,43 +25,50 @@ const Cart = (props) => {
       {props.cartItems.length ? (
         <Container>
           <H1 style={{ alignSelf: "center" }}>Cart</H1>
-          {props.cartItems.map((item) => {
-            return (
-              <ListItem
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "white",
-                }}
-                key={Math.random() * Math.random()}
-                avatar
-              >
-                <Left>
-                  <Thumbnail
-                    source={{
-                      uri: item.product.image
-                        ? item.product.image
-                        : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
-                    }}
-                  />
-                </Left>
-                <Body
+          <SwipeListView
+            data={props.cartItems}
+            keyExtractor={() => Math.random() * Math.random()}
+            renderItem={({ item }) => {
+              return (
+                <CartItem
+                  key={Math.random() * Math.random()}
+                  data={item.product}
+                />
+              );
+            }}
+            renderHiddenItem={({ item }) => {
+              return (
+                <View
                   style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
                     flexDirection: "row",
-                    alignItems: "center",
-                    margin: 10,
                   }}
                 >
-                  <Left>
-                    <H3>{item.product.name}</H3>
-                  </Left>
-                  <Right>
-                    <Text>${item.product.price}</Text>
-                  </Right>
-                </Body>
-              </ListItem>
-            );
-          })}
+                  <TouchableOpacity
+                    onPress={() => props.remove(item)}
+                    style={{
+                      backgroundColor: "red",
+                      justifyContent: "center",
+                      alignItems: "flex-end",
+                      paddingRight: 25,
+                      height: 70,
+                      width: width / 1.2,
+                    }}
+                  >
+                    <Icon name="trash" size={30} color="white" />
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+            leftOpenValue={75}
+            disableRightSwipe={true}
+            previewOpenDelay={3000}
+            friction={1000}
+            tension={40}
+            stopLeftSwipe={75}
+            rightOpenValue={-75}
+          />
           <View
             style={{
               flexDirection: "row",
