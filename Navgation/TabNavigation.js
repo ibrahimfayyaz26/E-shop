@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import HomeStack from "./ProductStack";
-import Cart from "../screens/Cart/Cart";
+import Cart from "./CartStack";
 import CartIcon from "../shared/CartIcon";
 import { View } from "react-native";
 
