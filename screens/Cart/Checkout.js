@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 import { connect } from "react-redux";
 import FormContainer from "../../shared/Form/FormContainer";
 import Input from "../../shared/Form/Input";

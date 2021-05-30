@@ -5,6 +5,8 @@ import HomeStack from "./ProductStack";
 import Cart from "./CartStack";
 import CartIcon from "../shared/CartIcon";
 import { View } from "react-native";
+import Admin from "../screens/Admin/Admin";
+import User from "../screens/User/User";
 
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +43,7 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="Admin"
-        component={() => null}
+        component={Admin}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="cog" color={color} size={30} />
@@ -50,7 +52,7 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="User"
-        component={() => null}
+        component={User}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="user" color={color} size={30} />

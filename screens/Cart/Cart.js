@@ -27,7 +27,7 @@ const Cart = (props) => {
           <H1 style={{ alignSelf: "center" }}>Cart</H1>
           <SwipeListView
             data={props.cartItems}
-            keyExtractor={() => Math.random() * Math.random()}
+            keyExtractor={() => (Math.random() * Math.random()).toString()}
             renderItem={({ item }) => {
               return (
                 <CartItem

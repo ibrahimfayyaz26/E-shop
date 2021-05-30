@@ -11,10 +11,8 @@ import {
   Left,
   Icon,
   Picker,
-  Form,
   Title,
   Body,
-  Item,
 } from "native-base";
 
 const methods = [
@@ -29,7 +27,6 @@ const Card = [
 ];
 
 const Payment = (props) => {
-  console.log(props.route.params);
   const [selectedM, setSelectedM] = useState();
   const [card, setCard] = useState();
   return (
@@ -68,7 +65,13 @@ const Payment = (props) => {
             onValueChange={(i) => setCard(i)}
           >
             {Card.map((i) => {
-              return <Picker.Item label={i.name} value={i.value} />;
+              return (
+                <Picker.Item
+                  key={Math.random() * Math.random()}
+                  label={i.name}
+                  value={i.value}
+                />
+              );
             })}
           </Picker>
         )}
