@@ -1,54 +1,100 @@
 import React from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
-import { connect } from "react-redux";
 import {
-  Container,
-  Header,
-  Content,
-  List,
-  ListItem,
-  Left,
-  Body,
-  Right,
-  Thumbnail,
-  Text,
-  H1,
-} from "native-base";
+  StyleSheet,
+  View,
+  Dimensions,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import { connect } from "react-redux";
+import { Container, Left, Right, Text, H1 } from "native-base";
+import * as Action from "../../store/Action/cartItems";
+import { SwipeListView } from "react-native-swipe-list-view";
+import CartItem from "./CartItem";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const { width, height } = Dimensions.get("window");
 
 const Cart = (props) => {
+  var total = 0;
+  props.cartItems.forEach(
+    (item) => (total += item.product.price * item.quantity)
+  );
   return (
     <>
       {props.cartItems.length ? (
-        props.cartItems.map((item) => {
-          return (
-            <Container style={{ flex: 1, width: width }}>
-              <Header />
-              <Content>
-                <ListItem avatar>
-                  <Left>
-                    <Thumbnail
-                      source={{
-                        uri: item.product.image
-                          ? item.product.image
-                          : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
-                      }}
-                    />
-                  </Left>
-                  <Body style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Left>
-                      <H1>{item.product.name}</H1>
-                    </Left>
-                    <Right>
-                      <Text>${item.product.price}</Text>
-                    </Right>
-                  </Body>
-                </ListItem>
-              </Content>
-            </Container>
-          );
-        })
+        <Container>
+          <H1 style={{ alignSelf: "center" }}>Cart</H1>
+          <SwipeListView
+            data={props.cartItems}
+            keyExtractor={() => (Math.random() * Math.random()).toString()}
+            renderItem={({ item }) => {
+              return (
+                <CartItem
+                  key={Math.random() * Math.random()}
+                  data={item.product}
+                />
+              );
+            }}
+            renderHiddenItem={({ item }) => {
+              return (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
+                    flexDirection: "row",
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() => props.remove(item)}
+                    style={{
+                      backgroundColor: "red",
+                      justifyContent: "center",
+                      alignItems: "flex-end",
+                      paddingRight: 25,
+                      height: 70,
+                      width: width / 1.2,
+                    }}
+                  >
+                    <Icon name="trash" size={30} color="white" />
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+            leftOpenValue={75}
+            disableRightSwipe={true}
+            previewOpenDelay={3000}
+            friction={1000}
+            tension={40}
+            stopLeftSwipe={75}
+            rightOpenValue={-75}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              bottom: 0,
+              elevation: 20,
+              position: "absolute",
+              left: 0,
+              backgroundColor: "white",
+            }}
+          >
+            <Left>
+              <Text style={{ margin: 10, color: "red", fontSize: 18 }}>
+                ${Math.ceil(total)}
+              </Text>
+            </Left>
+            <Right>
+              <Button title="Clear" onPress={() => props.clear()} />
+            </Right>
+            <Right>
+              <Button
+                title="Checkout"
+                onPress={() => props.navigation.navigate("Checkout")}
+              />
+            </Right>
+          </View>
+        </Container>
       ) : (
         <Container
           style={{
@@ -74,4 +120,11 @@ const stateData = (state) => {
   };
 };
 
-export default connect(stateData, null)(Cart);
+const dispatchProps = (dispatch) => {
+  return {
+    clear: () => dispatch(Action.clear()),
+    remove: (i) => dispatch(Action.remove(i)),
+  };
+};
+
+export default connect(stateData, dispatchProps)(Cart);

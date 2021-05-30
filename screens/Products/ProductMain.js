@@ -17,6 +17,7 @@ import {
   Button,
   Text,
 } from "native-base";
+import u from "../../assets/url/baseUrl";
 
 import ProductList from "./ProductList";
 import SearchedItems from "./SearchedItems";
@@ -36,6 +37,8 @@ const ProductMain = (props) => {
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
   const [productsCtg, setProductsCtg] = useState([]);
+
+  console.log(u);
 
   useEffect(() => {
     setProducts(data);
@@ -92,7 +95,7 @@ const ProductMain = (props) => {
           filteredProducts={filteredProducts}
         />
       ) : (
-        <ScrollView>
+        <ScrollView style={{ flex: 1 }}>
           <View>
             <View>
               <Banner />
@@ -111,7 +114,7 @@ const ProductMain = (props) => {
                 {productsCtg.map((item) => (
                   <ProductList
                     navigation={props.navigation}
-                    key={item._id.$oid}
+                    key={Math.random() * Math.random()}
                     item={item}
                   />
                 ))}
@@ -136,7 +139,7 @@ const ProductMain = (props) => {
 
 const styles = StyleSheet.create({
   list: {
-    height: height,
+    height: height + height / 4,
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",

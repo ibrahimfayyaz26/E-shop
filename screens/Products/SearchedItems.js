@@ -26,7 +26,7 @@ const SearchedItems = (props) => {
                     item: product,
                   })
                 }
-                key={product._id.$oid}
+                key={Math.random() * Math.random()}
                 avatar
               >
                 <Left>
