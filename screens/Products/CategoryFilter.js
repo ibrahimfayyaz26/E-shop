@@ -30,7 +30,7 @@ const CategoryFilter = (props) => {
           <TouchableOpacity
             key={Math.random() * Math.random()}
             onPress={() => {
-              props.categoryFilter(item._id.$oid),
+              props.categoryFilter(item.id),
                 props.setActive(props.categories.indexOf(item));
             }}
           >

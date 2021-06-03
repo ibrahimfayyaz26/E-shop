@@ -6,7 +6,7 @@ import Cart from "./CartStack";
 import CartIcon from "../shared/CartIcon";
 import { View } from "react-native";
 import Admin from "../screens/Admin/Admin";
-import User from "../screens/User/User";
+import User from "./User";
 
 const Tab = createBottomTabNavigator();
 
